@@ -1,5 +1,8 @@
-mod config;
+use TalkHub::config;
+use TalkHub::start_server;
 
-fn main() {
-    println!("Hello, world!");
+#[tokio::main]
+pub async fn main() {
+    let config = config::config().await;
+    start_server(config).await.expect("Failed to start server");
 }

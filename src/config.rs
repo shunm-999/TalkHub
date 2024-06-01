@@ -4,18 +4,18 @@ use std::sync::OnceLock;
 
 use dotenv::dotenv;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct ServerConfig<T: Into<IpAddr>> {
     host: T,
     port: u16,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Config {
     pub server: ServerConfig<[u8; 4]>,
 }
 
-pub static CONFIG: OnceLock<Config> = OnceLock::new();
+static CONFIG: OnceLock<Config> = OnceLock::new();
 
 impl Config {
     pub fn server_host(&self) -> &[u8; 4] {
@@ -53,4 +53,8 @@ fn init_config() -> Config {
     Config {
         server: server_config,
     }
+}
+
+pub async fn config() -> &'static Config {
+    CONFIG.get_or_init(init_config)
 }

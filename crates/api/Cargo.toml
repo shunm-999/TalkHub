@@ -8,3 +8,12 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+talk_hub_domain = { workspace = true }
+bcrypt = { workspace = true }
+actix-web = { workspace = true }
+base64 = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+url = { workspace = true }
+actix-web-httpauth = "0.8.1"
