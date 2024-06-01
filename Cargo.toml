@@ -106,3 +106,5 @@ chrono = { workspace = true }
 prometheus = { version = "0.13.4", features = ["process"] }
 clap = { workspace = true }
 actix-web-prom = "0.8.0"
+dotenv = { workspace = true }
+anyhow = { workspace = true }

@@ -8,3 +8,15 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+regex = { workspace = true}
+tracing = { workspace = true}
+tracing-error = { workspace = true}
+serde = { workspace = true }
+serde_json = { workspace = true}
+once_cell = { workspace = true}
+url = { workspace = true}
+anyhow = { workspace = true}
+doku = { workspace = true, features = ["url-2"]}
+uuid = { workspace = true, features = ["serde", "v4"]}
+tokio = { workspace = true}
+markdown-it = { version = "0.6.0"}
