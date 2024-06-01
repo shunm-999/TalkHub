@@ -23,6 +23,11 @@ dependencies = [
  "reqwest-middleware",
  "reqwest-tracing",
  "serde_json",
+ "talk_hub_api",
+ "talk_hub_database",
+ "talk_hub_domain",
+ "talk_hub_model",
+ "talk_hub_repository",
  "tokio",
  "tracing",
  "tracing-actix-web",
@@ -3558,6 +3563,26 @@ dependencies = [
  "core-foundation-sys",
  "libc",
 ]
+
+[[package]]
+name = "talk_hub_api"
+version = "0.1.0"
+
+[[package]]
+name = "talk_hub_database"
+version = "0.1.0"
+
+[[package]]
+name = "talk_hub_domain"
+version = "0.1.0"
+
+[[package]]
+name = "talk_hub_model"
+version = "0.1.0"
+
+[[package]]
+name = "talk_hub_repository"
+version = "0.1.0"
 
 [[package]]
 name = "tempfile"

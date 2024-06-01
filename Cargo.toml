@@ -13,8 +13,19 @@ repository.workspace = true
 publish = false
 
 [workspace]
+members = [
+    "crates/api",
+    "crates/database",
+    "crates/domain",
+    "crates/model",
+    "crates/repository"]
 
 [workspace.dependencies]
+talk_hub_api = { path = "./crates/api" }
+talk_hub_database = { path = "./crates/database" }
+talk_hub_domain = { path = "./crates/domain" }
+talk_hub_model = { path = "./crates/model" }
+talk_hub_repository = { path = "./crates/repository" }
 diesel = "2.1.6"
 diesel_migrations = "2.1.0"
 diesel-async = "0.4.1"
@@ -65,6 +76,11 @@ clap = { version = "4.5.4", features = ["derive", "env"] }
 pretty_assertions = "1.4.0"
 
 [dependencies]
+talk_hub_api = { workspace = true }
+talk_hub_database = { workspace = true }
+talk_hub_domain = { workspace = true }
+talk_hub_model = { workspace = true }
+talk_hub_repository = { workspace = true }
 diesel = { workspace = true }
 diesel-async = { workspace = true }
 actix-web = { workspace = true }
