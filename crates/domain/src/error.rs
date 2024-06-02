@@ -1,4 +1,5 @@
 use std::fmt::{Debug, Display, Formatter};
+use std::iter::Take;
 
 use tracing_error::SpanTrace;
 
@@ -59,5 +60,38 @@ impl From<Box<dyn TalkHubErrorType>> for TalkHubError {
             inner,
             context: SpanTrace::capture(),
         }
+    }
+}
+
+pub trait TalkHubErrorExt<T, E: Into<anyhow::Error>> {
+    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T>;
+}
+
+impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
+    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T> {
+        self.map_err(|e| TalkHubError {
+            error_type,
+            inner: e.into(),
+            context: SpanTrace::capture(),
+        })
+    }
+}
+
+pub trait TalkHubErrorExt2<T> {
+    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T>;
+
+    fn into_anyhow(self) -> Result<T, anyhow::Error>;
+}
+
+impl<T> TalkHubErrorExt2<T> for TalkHubResult<T> {
+    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T> {
+        self.map_err(|mut e| {
+            e.error_type = error_type;
+            e
+        })
+    }
+
+    fn into_anyhow(self) -> Result<T, anyhow::Error> {
+        self.map_err(|e| e.inner)
     }
 }
