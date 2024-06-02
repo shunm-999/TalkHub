@@ -8,6 +8,7 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+talk_hub_model = { workspace = true }
 talk_hub_domain = { workspace = true }
 bcrypt = { workspace = true }
 actix-web = { workspace = true }
@@ -17,3 +18,6 @@ tracing = { workspace = true }
 chrono = { workspace = true }
 url = { workspace = true }
 actix-web-httpauth = "0.8.1"
+serde = { version = "1.0.202", features = ["derive"] }
+serde_with = "3.8.1"
+serde_json = { version = "1.0.117", features = ["preserve_order"] }

@@ -4019,7 +4019,11 @@ dependencies = [
  "base64 0.22.1",
  "bcrypt",
  "chrono",
+ "serde",
+ "serde_json",
+ "serde_with",
  "talk_hub_domain",
+ "talk_hub_model",
  "tracing",
  "url",
 ]

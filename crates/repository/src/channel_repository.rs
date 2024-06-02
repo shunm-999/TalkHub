@@ -4,6 +4,7 @@ use talk_hub_domain::crates::channel_operation::{
     DeleteChannel, GetChannel, GetChannels, UpdateChannel,
 };
 use talk_hub_domain::error::TalkHubResult;
+use talk_hub_domain::input_data::channel_operation::{ChannelDeletion, ChannelUpdate};
 use talk_hub_model::channel::{Channel, ChannelId};
 
 pub struct ChannelRepository {}
@@ -30,14 +31,14 @@ impl GetChannels for ChannelRepository {
 
 #[async_trait]
 impl UpdateChannel for ChannelRepository {
-    async fn update_channel(&self, operation: Channel) -> TalkHubResult<Channel> {
+    async fn update_channel(&self, operation: ChannelUpdate) -> TalkHubResult<Channel> {
         unimplemented!()
     }
 }
 
 #[async_trait]
 impl DeleteChannel for ChannelRepository {
-    async fn delete_channel(&self, operation: ChannelId) -> TalkHubResult<()> {
+    async fn delete_channel(&self, operation: ChannelDeletion) -> TalkHubResult<()> {
         unimplemented!()
     }
 }
