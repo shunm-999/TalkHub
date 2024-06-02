@@ -8,3 +8,23 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+talk_hub_model = { workspace = true }
+talk_hub_domain = { workspace = true }
+regex = { workspace = true }
+tracing = { workspace = true }
+tracing-error = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_with = { workspace = true }
+once_cell = { workspace = true }
+url = { workspace = true }
+anyhow = { workspace = true }
+doku = { workspace = true, features = ["url-2"] }
+uuid = { workspace = true, features = ["serde", "v4"] }
+tokio = { workspace = true }
+markdown-it = { version = "0.6.0" }
+chrono = { workspace = true }
+async-trait = { workspace = true }
+diesel = { workspace = true }
+diesel-async = { workspace = true}
+diesel_ltree = { workspace = true }

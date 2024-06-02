@@ -1,4 +1,5 @@
-mod channel;
+pub mod channel;
+pub mod message;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right

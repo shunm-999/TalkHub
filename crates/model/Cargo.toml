@@ -20,3 +20,4 @@ doku = { workspace = true, features = ["url-2"]}
 uuid = { workspace = true, features = ["serde", "v4"]}
 tokio = { workspace = true}
 markdown-it = { version = "0.6.0"}
+chrono = { workspace = true}

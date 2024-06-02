@@ -1,14 +1,15 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, Hash)]
-pub struct ChannelId(pub String);
+use crate::channel::ChannelId;
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
-pub struct Channel {
-    id: ChannelId,
-    name: String,
-    description: String,
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, Hash)]
+pub struct MessageId(pub String);
+
+pub struct Message {
+    id: MessageId,
+    content: String,
+    channel_id: ChannelId,
     created_at: DateTime<Utc>,
     updated_at: DateTime<Utc>,
 }
