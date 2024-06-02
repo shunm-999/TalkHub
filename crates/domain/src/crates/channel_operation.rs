@@ -2,7 +2,7 @@ use async_trait::async_trait;
 
 use talk_hub_model::channel::{Channel, ChannelId};
 
-use crate::error::TalkHubResult;
+use crate::result::TalkHubResult;
 use crate::input_data::channel_operation::{ChannelCreation, ChannelDeletion, ChannelUpdate};
 
 #[async_trait]

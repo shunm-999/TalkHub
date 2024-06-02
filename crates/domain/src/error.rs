@@ -1,26 +1,9 @@
-use std::fmt::{Debug, Display, Formatter};
-use std::iter::Take;
-
+use std::fmt::{Debug, Display};
 use tracing_error::SpanTrace;
-
-pub type TalkHubResult<T> = Result<T, TalkHubError>;
+use crate::error_type::ErrorType;
+use crate::result::TalkHubResult;
 
 pub trait TalkHubErrorType: Debug + Display {}
-
-#[derive(Debug)]
-pub enum ErrorType {
-    Unknown(String),
-}
-
-impl Display for ErrorType {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ErrorType::Unknown(message) => write!(f, "{}", message),
-        }
-    }
-}
-
-impl TalkHubErrorType for ErrorType {}
 
 pub struct TalkHubError {
     pub error_type: Box<dyn TalkHubErrorType>,
@@ -49,6 +32,14 @@ impl Debug for TalkHubError {
             .field("inner", &self.inner)
             .field("context", &self.context)
             .finish()
+    }
+}
+
+impl Display for TalkHubError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}: ", self.error_type.as_ref())?;
+        writeln!(f, "{}", self.inner)?;
+        std::fmt::Display::fmt(&self.context, f)
     }
 }
 

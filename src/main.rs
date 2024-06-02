@@ -1,3 +1,5 @@
+#![feature(fn_traits, unboxed_closures)]
+
 use TalkHub::config;
 use TalkHub::start_server;
 

@@ -6,7 +6,7 @@ use actix_web::{App, HttpServer};
 use tokio::signal::unix::SignalKind;
 
 use talk_hub_api::api_route_http;
-use talk_hub_domain::error::TalkHubResult;
+use talk_hub_domain::result::TalkHubResult;
 
 use crate::config::Config;
 use talk_hub_api::context::TalkHubContext;

@@ -1,9 +1,9 @@
-use crate::common::view_model::channel_view::ChannelViewModel;
+use crate::common::view_model::channel_view::{ChannelsViewModel, ChannelViewModel};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct GetChannelsResponse {
-    pub channels: Vec<ChannelViewModel>,
+    pub channels: ChannelsViewModel,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

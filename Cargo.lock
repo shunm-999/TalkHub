@@ -4024,6 +4024,7 @@ dependencies = [
  "serde_with",
  "talk_hub_domain",
  "talk_hub_model",
+ "talk_hub_repository",
  "tracing",
  "url",
 ]
