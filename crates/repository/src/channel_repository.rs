@@ -25,7 +25,14 @@ impl GetChannel for ChannelRepository {
 #[async_trait]
 impl GetChannels for ChannelRepository {
     async fn get_channels(&self) -> TalkHubResult<Vec<Channel>> {
-        unimplemented!()
+        // TODO 未実装
+        Ok(vec![Channel::new(
+            ChannelId("1".to_string()),
+            "channel1".to_string(),
+            "channel1 description".to_string(),
+            chrono::Utc::now(),
+            chrono::Utc::now(),
+        )])
     }
 }
 

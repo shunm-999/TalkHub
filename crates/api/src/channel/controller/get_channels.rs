@@ -1,7 +1,6 @@
 use actix_web::http::StatusCode;
 use actix_web::web::{Data, Json};
 
-use talk_hub_domain::result::TalkHubResult;
 use talk_hub_domain::usecase::channel::get_channels_usecase::GetChannelsUseCase;
 use talk_hub_repository::channel_repository::ChannelRepository;
 
