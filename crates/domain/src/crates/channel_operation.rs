@@ -2,8 +2,8 @@ use async_trait::async_trait;
 
 use talk_hub_model::channel::{Channel, ChannelId};
 
-use crate::result::TalkHubResult;
 use crate::input_data::channel_operation::{ChannelCreation, ChannelDeletion, ChannelUpdate};
+use crate::result::TalkHubResult;
 
 #[async_trait]
 pub trait GetChannel {

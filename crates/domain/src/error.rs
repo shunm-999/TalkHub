@@ -1,12 +1,11 @@
+use crate::error_type::TalkHubErrorType;
+use crate::result::TalkHubResult;
+use serde::{Deserialize, Serialize};
 use std::fmt::{Debug, Display};
 use tracing_error::SpanTrace;
-use crate::error_type::ErrorType;
-use crate::result::TalkHubResult;
-
-pub trait TalkHubErrorType: Debug + Display {}
 
 pub struct TalkHubError {
-    pub error_type: Box<dyn TalkHubErrorType>,
+    pub error_type: TalkHubErrorType,
     pub inner: anyhow::Error,
     pub context: SpanTrace,
 }
@@ -18,7 +17,7 @@ where
     fn from(value: T) -> Self {
         let cause = value.into();
         TalkHubError {
-            error_type: Box::new(ErrorType::Unknown(format!("{}", &cause))),
+            error_type: TalkHubErrorType::Unknown(format!("{}", &cause)),
             inner: cause,
             context: SpanTrace::capture(),
         }
@@ -28,7 +27,7 @@ where
 impl Debug for TalkHubError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("TalkHubError")
-            .field("message", &self.error_type.as_ref())
+            .field("message", &self.error_type)
             .field("inner", &self.inner)
             .field("context", &self.context)
             .finish()
@@ -37,15 +36,15 @@ impl Debug for TalkHubError {
 
 impl Display for TalkHubError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{}: ", self.error_type.as_ref())?;
+        write!(f, "{}: ", self.error_type)?;
         writeln!(f, "{}", self.inner)?;
         std::fmt::Display::fmt(&self.context, f)
     }
 }
 
-impl From<Box<dyn TalkHubErrorType>> for TalkHubError {
-    fn from(value: Box<dyn TalkHubErrorType>) -> Self {
-        let inner = anyhow::anyhow!("{}", value.as_ref());
+impl From<TalkHubErrorType> for TalkHubError {
+    fn from(value: TalkHubErrorType) -> Self {
+        let inner = anyhow::anyhow!("{}", value);
         TalkHubError {
             error_type: value,
             inner,
@@ -55,11 +54,11 @@ impl From<Box<dyn TalkHubErrorType>> for TalkHubError {
 }
 
 pub trait TalkHubErrorExt<T, E: Into<anyhow::Error>> {
-    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T>;
+    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T>;
 }
 
 impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
-    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T> {
+    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T> {
         self.map_err(|e| TalkHubError {
             error_type,
             inner: e.into(),
@@ -69,13 +68,13 @@ impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
 }
 
 pub trait TalkHubErrorExt2<T> {
-    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T>;
+    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T>;
 
     fn into_anyhow(self) -> Result<T, anyhow::Error>;
 }
 
 impl<T> TalkHubErrorExt2<T> for TalkHubResult<T> {
-    fn with_error_type(self, error_type: Box<dyn TalkHubErrorType>) -> TalkHubResult<T> {
+    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T> {
         self.map_err(|mut e| {
             e.error_type = error_type;
             e

@@ -4,10 +4,10 @@
 
 pub mod crates;
 pub mod error;
-pub mod input_data;
-pub mod usecase;
-pub mod result;
 pub mod error_type;
+pub mod input_data;
+pub mod result;
+pub mod usecase;
 
 #[cfg(test)]
 mod tests {

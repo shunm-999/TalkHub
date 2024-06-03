@@ -1,4 +1,4 @@
-use crate::common::view_model::channel_view::{ChannelsViewModel, ChannelViewModel};
+use crate::common::view_model::channel_view::{ChannelViewModel, ChannelsViewModel};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

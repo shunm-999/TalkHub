@@ -3,8 +3,8 @@ use async_trait::async_trait;
 use talk_hub_domain::crates::channel_operation::{
     DeleteChannel, GetChannel, GetChannels, UpdateChannel,
 };
-use talk_hub_domain::result::TalkHubResult;
 use talk_hub_domain::input_data::channel_operation::{ChannelDeletion, ChannelUpdate};
+use talk_hub_domain::result::TalkHubResult;
 use talk_hub_model::channel::{Channel, ChannelId};
 
 pub struct ChannelRepository {}

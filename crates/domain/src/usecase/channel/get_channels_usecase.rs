@@ -9,9 +9,7 @@ pub struct GetChannelsUseCase {
 
 impl GetChannelsUseCase {
     pub fn new(repository: Box<dyn GetChannels>) -> Self {
-        Self {
-            repository
-        }
+        Self { repository }
     }
 
     pub async fn invoke(self) -> TalkHubResult<Vec<Channel>> {

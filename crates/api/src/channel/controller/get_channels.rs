@@ -6,15 +6,16 @@ use talk_hub_domain::usecase::channel::get_channels_usecase::GetChannelsUseCase;
 use talk_hub_repository::channel_repository::ChannelRepository;
 
 use crate::channel::data::response::GetChannelsResponse;
+use crate::common::api_result::ApiResult;
 use crate::context::TalkHubContext;
 
-pub(crate) async fn get_channels(context: Data<TalkHubContext>) -> TalkHubResult<(Json<GetChannelsResponse>, StatusCode)> {
-    let usecase = GetChannelsUseCase::new(
-        Box::new(ChannelRepository::new()),
-    );
+pub(crate) async fn get_channels(
+    context: Data<TalkHubContext>,
+) -> ApiResult<Json<GetChannelsResponse>> {
+    let usecase = GetChannelsUseCase::new(Box::new(ChannelRepository::new()));
     let channels = usecase.invoke().await?;
     let response = GetChannelsResponse {
-        channels: channels.into()
+        channels: channels.into(),
     };
     Ok((Json(response), StatusCode::OK))
 }
