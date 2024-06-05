@@ -1,6 +1,6 @@
 diesel::table! {
     channel(id) {
-        id -> Int4,
+        id -> Uuid,
         name -> Text,
         description -> Text,
         created_at -> Timestamptz,
@@ -10,9 +10,9 @@ diesel::table! {
 
 diesel::table! {
     message(id) {
-        id -> Int4,
+        id -> Uuid,
         content -> Text,
-        channel_id -> Int4,
+        channel_id -> Uuid,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
     }

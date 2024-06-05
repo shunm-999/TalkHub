@@ -8,11 +8,11 @@ use crate::channel::ChannelId;
 pub struct MessageId(pub String);
 
 pub struct Message {
-    id: MessageId,
-    content: String,
-    channel_id: ChannelId,
-    created_at: DateTime<Utc>,
-    updated_at: DateTime<Utc>,
+    pub id: MessageId,
+    pub content: String,
+    pub channel_id: ChannelId,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
 }
 
 impl Display for MessageId {
