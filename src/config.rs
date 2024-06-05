@@ -11,8 +11,14 @@ struct ServerConfig<T: Into<IpAddr>> {
 }
 
 #[derive(Debug, Clone)]
+struct DatabaseConfig {
+    database_url: String,
+}
+
+#[derive(Debug, Clone)]
 pub struct Config {
     pub server: ServerConfig<[u8; 4]>,
+    pub database: DatabaseConfig,
 }
 
 static CONFIG: OnceLock<Config> = OnceLock::new();
@@ -29,9 +35,19 @@ impl Config {
 
 fn init_config() -> Config {
     let log_level = env::var("RUST_LOG").unwrap_or("info".to_string());
-    env::set_var("RUST_LOG", &log_level);
+    set_env_var("RUST_LOG", &log_level);
 
     dotenv().ok();
+    let server_config = load_server_config();
+    let database_config = load_data_config();
+
+    Config {
+        server: server_config,
+        database: database_config,
+    }
+}
+
+fn load_server_config() -> ServerConfig<[u8; 4]> {
     let server_url = env::var("SERVER_URL")
         .expect("undefined [SERVER_URL]")
         .split(".")
@@ -45,16 +61,24 @@ fn init_config() -> Config {
         .parse::<u16>()
         .unwrap();
 
-    let server_config = ServerConfig {
+    ServerConfig {
         host: server_host,
         port: server_port,
-    };
-
-    Config {
-        server: server_config,
     }
+}
+
+fn load_data_config() -> DatabaseConfig {
+    let database_url = env::var("DATABASE_URL").expect("undefined [DATABASE_URL]");
+
+    DatabaseConfig { database_url }
 }
 
 pub async fn config() -> &'static Config {
     CONFIG.get_or_init(init_config)
+}
+
+fn set_env_var(key: &str, value: &str) {
+    unsafe {
+        env::set_var(key, value);
+    }
 }
