@@ -1,7 +1,7 @@
 #![feature(fn_traits, unboxed_closures)]
 
-use TalkHub::config;
-use TalkHub::start_server;
+use talk_hub::config;
+use talk_hub::start_server;
 
 #[tokio::main]
 pub async fn main() {

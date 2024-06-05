@@ -3,44 +3,6 @@
 version = 3
 
 [[package]]
-name = "TalkHub"
-version = "0.1.0"
-dependencies = [
- "actix-cors",
- "actix-web",
- "actix-web-prom",
- "anyhow",
- "chrono",
- "clap",
- "clokwerk",
- "console-subscriber 0.1.10",
- "diesel",
- "diesel-async",
- "dotenv",
- "opentelemetry 0.23.0",
- "opentelemetry-otlp 0.12.0",
- "pict-rs",
- "prometheus",
- "reqwest",
- "reqwest-middleware",
- "reqwest-tracing",
- "serde_json",
- "talk_hub_api",
- "talk_hub_database",
- "talk_hub_domain",
- "talk_hub_model",
- "talk_hub_repository",
- "tokio",
- "tracing",
- "tracing-actix-web",
- "tracing-error",
- "tracing-log",
- "tracing-opentelemetry 0.24.0",
- "tracing-subscriber",
- "url",
-]
-
-[[package]]
 name = "actix-codec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4007,6 +3969,44 @@ checksum = "a75fb188eb626b924683e3b95e3a48e63551fcfb51949de2f06a9d91dbee93c9"
 dependencies = [
  "core-foundation-sys",
  "libc",
+]
+
+[[package]]
+name = "talk_hub"
+version = "0.1.0"
+dependencies = [
+ "actix-cors",
+ "actix-web",
+ "actix-web-prom",
+ "anyhow",
+ "chrono",
+ "clap",
+ "clokwerk",
+ "console-subscriber 0.1.10",
+ "diesel",
+ "diesel-async",
+ "dotenv",
+ "opentelemetry 0.23.0",
+ "opentelemetry-otlp 0.12.0",
+ "pict-rs",
+ "prometheus",
+ "reqwest",
+ "reqwest-middleware",
+ "reqwest-tracing",
+ "serde_json",
+ "talk_hub_api",
+ "talk_hub_database",
+ "talk_hub_domain",
+ "talk_hub_model",
+ "talk_hub_repository",
+ "tokio",
+ "tracing",
+ "tracing-actix-web",
+ "tracing-error",
+ "tracing-log",
+ "tracing-opentelemetry 0.24.0",
+ "tracing-subscriber",
+ "url",
 ]
 
 [[package]]

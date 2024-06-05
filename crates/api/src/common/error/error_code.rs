@@ -1,5 +1,9 @@
 use serde::{Deserialize, Serialize};
 
+use talk_hub_domain::errors::channel::channel_error_context::ChannelErrorContext;
+use talk_hub_domain::errors::error_type::TalkHubErrorType;
+use talk_hub_domain::errors::message::message_error_context::MessageErrorContext;
+
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct ErrorCode(pub u16);
 macro_rules! error_codes {
@@ -39,5 +43,37 @@ error_codes! {
 impl Into<u16> for ErrorCode {
     fn into(self) -> u16 {
         self.0
+    }
+}
+
+impl From<&TalkHubErrorType> for ErrorCode {
+    fn from(value: &TalkHubErrorType) -> Self {
+        match value {
+            TalkHubErrorType::Unknown(_) => ErrorCode::INTERNAL_SERVER_ERROR,
+            TalkHubErrorType::ChannelError(error_context) => error_context.into(),
+            TalkHubErrorType::MessageError(error_context) => error_context.into(),
+            TalkHubErrorType::UnAuthorized => ErrorCode::UNAUTHORIZED_TOKEN,
+        }
+    }
+}
+
+impl From<&ChannelErrorContext> for ErrorCode {
+    fn from(context: &ChannelErrorContext) -> Self {
+        match context {
+            ChannelErrorContext::NotFound(_) => ErrorCode::NOT_FOUND,
+            ChannelErrorContext::AlreadyExists(_) => ErrorCode::BAD_REQUEST,
+            ChannelErrorContext::AccessDenied(_) => ErrorCode::FORBIDDEN,
+            ChannelErrorContext::InvalidOperation(_) => ErrorCode::BAD_REQUEST,
+        }
+    }
+}
+
+impl From<&MessageErrorContext> for ErrorCode {
+    fn from(context: &MessageErrorContext) -> Self {
+        match context {
+            MessageErrorContext::NotFound(_) => ErrorCode::NOT_FOUND,
+            MessageErrorContext::AccessDenied(_) => ErrorCode::FORBIDDEN,
+            MessageErrorContext::InvalidOperation(_) => ErrorCode::BAD_REQUEST,
+        }
     }
 }

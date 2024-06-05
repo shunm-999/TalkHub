@@ -1,6 +1,5 @@
-use crate::error_type::TalkHubErrorType;
+use crate::errors::error_type::TalkHubErrorType;
 use crate::result::TalkHubResult;
-use serde::{Deserialize, Serialize};
 use std::fmt::{Debug, Display};
 use tracing_error::SpanTrace;
 

@@ -5,7 +5,7 @@ description = "A simple chat application"
 repository = "https://github.com/shunm-999/TalkHub"
 
 [package]
-name = "TalkHub"
+name = "talk_hub"
 version.workspace = true
 edition.workspace = true
 description.workspace = true

@@ -3,8 +3,7 @@
 #![feature(async_fn_traits)]
 
 pub mod crates;
-pub mod error;
-pub mod error_type;
+pub mod errors;
 pub mod input_data;
 pub mod result;
 pub mod usecase;
