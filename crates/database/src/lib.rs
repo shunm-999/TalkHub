@@ -1,3 +1,4 @@
+mod entity;
 mod schema;
 
 pub fn add(left: usize, right: usize) -> usize {

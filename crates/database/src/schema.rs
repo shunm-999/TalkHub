@@ -3,8 +3,8 @@ diesel::table! {
         id -> Int4,
         name -> Text,
         description -> Text,
-        created_at -> Timestamp,
-        updated_at -> Timestamp,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
     }
 }
 
@@ -13,8 +13,8 @@ diesel::table! {
         id -> Int4,
         content -> Text,
         channel_id -> Int4,
-        created_at -> Timestamp,
-        updated_at -> Timestamp,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
     }
 }
 
