@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  backend:
+    container_name: talk-hub-backend
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+  database:
+    container_name: talk-hub-database
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-talk_hub}"]
+      interval: 5s
+      retries: 3
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: talk_hub
+        TZ: 'Asia/Tokyo'
+    restart: always
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.20.0/24
+
+volumes:
+  pgdata:

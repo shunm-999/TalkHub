@@ -8,3 +8,32 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = { workspace = true }
+serde = { workspace = true }
+serde_with = { workspace = true }
+url = { workspace = true }
+serde_json = { workspace = true }
+bcrypt = { workspace = true }
+diesel = { workspace = true, features = [
+    "postgres",
+    "chrono",
+    "serde_json",
+    "uuid",
+] }
+diesel-derive-newtype = { workspace = true }
+diesel-derive-enum = { workspace = true }
+diesel_migrations = { workspace = true }
+diesel-async = { workspace = true, features = [
+    "postgres",
+    "deadpool",
+] }
+regex = { workspace = true }
+once_cell = { workspace = true }
+diesel_ltree = { workspace = true }
+async-trait = { workspace = true }
+tracing = { workspace = true }
+deadpool = { version = "0.12.1", features = ["rt_tokio_1"] }
+tokio = { workspace = true }
+tokio-postgres = { workspace = true }
+uuid = { workspace = true, features = ["v4"] }
+anyhow = { workspace = true }
