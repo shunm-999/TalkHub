@@ -63,6 +63,9 @@ impl UpdateChannel for ChannelRepository<'_> {
 #[async_trait]
 impl DeleteChannel for ChannelRepository<'_> {
     async fn delete_channel(self, operation: ChannelDeletion) -> TalkHubResult<()> {
-        unimplemented!()
+        let mut conn = get_conn(self.db_pool).await?;
+        ChannelDao::delete(conn.deref_mut(), operation.id.into())
+            .await
+            .map(|_| ())
     }
 }
