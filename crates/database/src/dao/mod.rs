@@ -1,1 +1,1 @@
-mod channel_dao;
+pub mod channel_dao;

@@ -10,6 +10,7 @@ repository.workspace = true
 [dependencies]
 talk_hub_model = { workspace = true }
 talk_hub_domain = { workspace = true }
+talk_hub_database = { workspace = true }
 regex = { workspace = true }
 tracing = { workspace = true }
 tracing-error = { workspace = true }

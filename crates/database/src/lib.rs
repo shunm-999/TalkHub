@@ -1,4 +1,4 @@
-mod dao;
+pub mod dao;
 mod entity;
 mod error;
 mod migration;

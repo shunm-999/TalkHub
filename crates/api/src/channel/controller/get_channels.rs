@@ -11,7 +11,8 @@ use crate::context::TalkHubContext;
 pub(crate) async fn get_channels(
     context: Data<TalkHubContext>,
 ) -> ApiResult<Json<GetChannelsResponse>> {
-    let usecase = GetChannelsUseCase::new(Box::new(ChannelRepository::new()));
+    let pool = &mut context.pool();
+    let usecase = GetChannelsUseCase::new(ChannelRepository::new(pool));
     let channels = usecase.invoke().await?;
     let response = GetChannelsResponse {
         channels: channels.into(),

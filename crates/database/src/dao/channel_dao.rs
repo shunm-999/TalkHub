@@ -15,7 +15,7 @@ use crate::schema::channel;
 pub struct ChannelDao {}
 
 impl ChannelDao {
-    async fn select_all(conn: &mut AsyncPgConnection) -> TalkHubResult<Vec<ChannelEntity>> {
+    pub async fn select_all(conn: &mut AsyncPgConnection) -> TalkHubResult<Vec<ChannelEntity>> {
         let result = channel::table
             .select(ChannelEntity::as_select())
             .load(conn)
@@ -23,7 +23,7 @@ impl ChannelDao {
         result.map_error_type(|e| convert_to_error_type(e, ChannelDaoOperation::SelectAll))
     }
 
-    async fn select_by_id(
+    pub async fn select_by_id(
         conn: &mut AsyncPgConnection,
         channel_id: Uuid,
     ) -> TalkHubResult<ChannelEntity> {
@@ -36,7 +36,7 @@ impl ChannelDao {
         })
     }
 
-    async fn insert(
+    pub async fn insert(
         conn: &mut AsyncPgConnection,
         channel_entity: ChannelEntity,
     ) -> TalkHubResult<ChannelEntity> {
@@ -53,7 +53,7 @@ impl ChannelDao {
         })
     }
 
-    async fn update(
+    pub async fn update(
         conn: &mut AsyncPgConnection,
         channel_entity: ChannelEntity,
     ) -> TalkHubResult<ChannelEntity> {
@@ -70,7 +70,7 @@ impl ChannelDao {
         })
     }
 
-    async fn delete(
+    pub async fn delete(
         conn: &mut AsyncPgConnection,
         channel_id: Uuid,
     ) -> TalkHubResult<ChannelEntity> {

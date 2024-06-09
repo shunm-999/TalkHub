@@ -3,16 +3,16 @@ use talk_hub_model::channel::Channel;
 use crate::crates::channel_operation::GetChannels;
 use crate::result::TalkHubResult;
 
-pub struct GetChannelsUseCase {
-    repository: Box<dyn GetChannels>,
+pub struct GetChannelsUseCase<T: GetChannels + Sized> {
+    repository: T,
 }
 
-impl GetChannelsUseCase {
-    pub fn new(repository: Box<dyn GetChannels>) -> Self {
+impl<T: GetChannels + Sized> GetChannelsUseCase<T> {
+    pub fn new(repository: T) -> Self {
         Self { repository }
     }
 
     pub async fn invoke(self) -> TalkHubResult<Vec<Channel>> {
-        self.repository.as_ref().get_channels().await
+        self.repository.get_channels().await
     }
 }
