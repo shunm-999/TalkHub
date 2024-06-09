@@ -7,8 +7,8 @@ pub struct ChannelCreation {
 
 pub struct ChannelUpdate {
     pub id: ChannelId,
-    pub name: String,
-    pub description: String,
+    pub name: Option<String>,
+    pub description: Option<String>,
 }
 
 pub struct ChannelDeletion {

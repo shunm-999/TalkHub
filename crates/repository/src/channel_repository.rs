@@ -23,7 +23,10 @@ impl<'a> ChannelRepository<'a> {
 #[async_trait]
 impl GetChannel for ChannelRepository<'_> {
     async fn get_channel(self, channel_id: ChannelId) -> TalkHubResult<Channel> {
-        unimplemented!()
+        let mut conn = get_conn(self.db_pool).await?;
+        ChannelDao::select_by_id(conn.deref_mut(), channel_id.into())
+            .await
+            .map(|channel_entity| channel_entity.into())
     }
 }
 
@@ -45,7 +48,15 @@ impl GetChannels for ChannelRepository<'_> {
 #[async_trait]
 impl UpdateChannel for ChannelRepository<'_> {
     async fn update_channel(self, operation: ChannelUpdate) -> TalkHubResult<Channel> {
-        unimplemented!()
+        let mut conn = get_conn(self.db_pool).await?;
+        ChannelDao::update(
+            conn.deref_mut(),
+            operation.id.into(),
+            operation.name,
+            operation.description,
+        )
+        .await
+        .map(|channel_entity| channel_entity.into())
     }
 }
 

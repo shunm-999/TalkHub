@@ -7,6 +7,12 @@ use uuid::Uuid;
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, Hash)]
 pub struct ChannelId(pub String);
 
+impl From<ChannelId> for Uuid {
+    fn from(value: ChannelId) -> Self {
+        Uuid::parse_str(&value.0).unwrap()
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct Channel {
     pub id: ChannelId,

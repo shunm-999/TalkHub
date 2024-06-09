@@ -1,6 +1,6 @@
-use diesel::{Identifiable, QueryDsl, SelectableHelper};
+use diesel::{ExpressionMethods, Identifiable, QueryDsl, SelectableHelper};
 use diesel_async::{AsyncPgConnection, RunQueryDsl};
-use uuid::{uuid, Uuid};
+use uuid::Uuid;
 
 use talk_hub_domain::errors::channel::channel_error_context::ChannelErrorContext;
 use talk_hub_domain::errors::error::TalkHubErrorExt;
@@ -55,17 +55,21 @@ impl ChannelDao {
 
     pub async fn update(
         conn: &mut AsyncPgConnection,
-        channel_entity: ChannelEntity,
+        channel_id: Uuid,
+        name: Option<String>,
+        description: Option<String>,
     ) -> TalkHubResult<ChannelEntity> {
-        let result = diesel::update(channel::table.find(&channel_entity.id()))
-            .set(&channel_entity)
-            .returning(ChannelEntity::as_returning())
+        let name = name.map(|name| channel::name.eq(name));
+        let description = description.map(|description| channel::description.eq(description));
+
+        let result = diesel::update(channel::table.filter(channel::id.eq(&channel_id)))
+            .set((name, description))
             .get_result(conn)
             .await;
         result.map_error_type(|e| {
             convert_to_error_type(
                 e,
-                ChannelDaoOperation::Update(ChannelId(channel_entity.id().to_string())),
+                ChannelDaoOperation::Update(ChannelId(channel_id.to_string())),
             )
         })
     }
