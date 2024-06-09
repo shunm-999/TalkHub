@@ -10,11 +10,12 @@ use talk_hub_domain::result::TalkHubResult;
 
 use crate::config::Config;
 use talk_hub_api::context::TalkHubContext;
+use talk_hub_database::utils::build_db_pool;
 
 pub mod config;
 
 pub async fn start_server(config: &Config) -> TalkHubResult<()> {
-    let server = create_server(config)?;
+    let server = create_server(config).await?;
 
     let mut interrupt = tokio::signal::unix::signal(SignalKind::interrupt())?;
     let mut terminate = tokio::signal::unix::signal(SignalKind::terminate())?;
@@ -34,8 +35,13 @@ pub async fn start_server(config: &Config) -> TalkHubResult<()> {
     Ok(())
 }
 
-fn create_server(config: &Config) -> TalkHubResult<ServerHandle> {
-    let context = TalkHubContext::new();
+async fn create_server(config: &Config) -> TalkHubResult<ServerHandle> {
+    let db_pool = build_db_pool(
+        &config.database_url().to_string(),
+        config.database_pool_size(),
+    )
+    .await?;
+    let context = TalkHubContext::create(db_pool);
 
     let bind = SocketAddr::from((config.server_host().clone(), config.server_port()));
 

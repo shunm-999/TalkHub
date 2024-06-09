@@ -1,5 +1,8 @@
+mod dao;
 mod entity;
+mod migration;
 mod schema;
+pub mod utils;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right

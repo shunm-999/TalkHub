@@ -11,6 +11,7 @@ repository.workspace = true
 talk_hub_model = { workspace = true }
 talk_hub_domain = { workspace = true }
 talk_hub_repository = { workspace = true }
+talk_hub_database = { workspace = true }
 bcrypt = { workspace = true }
 actix-web = { workspace = true }
 base64 = { workspace = true }

@@ -13,6 +13,7 @@ struct ServerConfig<T: Into<IpAddr>> {
 #[derive(Debug, Clone)]
 struct DatabaseConfig {
     database_url: String,
+    pool_size: usize,
 }
 
 #[derive(Debug, Clone)]
@@ -30,6 +31,14 @@ impl Config {
 
     pub fn server_port(&self) -> u16 {
         self.server.port
+    }
+
+    pub fn database_url(&self) -> &str {
+        &self.database.database_url
+    }
+
+    pub fn database_pool_size(&self) -> usize {
+        self.database.pool_size
     }
 }
 
@@ -69,8 +78,15 @@ fn load_server_config() -> ServerConfig<[u8; 4]> {
 
 fn load_data_config() -> DatabaseConfig {
     let database_url = env::var("DATABASE_URL").expect("undefined [DATABASE_URL]");
+    let pool_size = env::var("POOL_SIZE")
+        .expect("undefined [POOL_SIZE]")
+        .parse::<usize>()
+        .unwrap();
 
-    DatabaseConfig { database_url }
+    DatabaseConfig {
+        database_url,
+        pool_size,
+    }
 }
 
 pub async fn config() -> &'static Config {

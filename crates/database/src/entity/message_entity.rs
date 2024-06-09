@@ -6,6 +6,7 @@ use uuid::Uuid;
 
 #[derive(Queryable, Identifiable, Selectable, Debug)]
 #[diesel(table_name = crate::schema::message)]
+#[diesel(belongs_to(crate::schema::channel))]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct MessageEntity {
     id: Uuid,
