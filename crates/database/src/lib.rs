@@ -1,5 +1,5 @@
 pub mod dao;
-mod entity;
+pub mod entity;
 mod error;
 mod migration;
 mod schema;

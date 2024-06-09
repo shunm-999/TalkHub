@@ -10,3 +10,8 @@ pub struct GetChannelsResponse {
 pub struct GetChannelResponse {
     pub channel: ChannelViewModel,
 }
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct CreateChannelResponse {
+    pub channel: ChannelViewModel,
+}

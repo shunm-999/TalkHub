@@ -17,6 +17,19 @@ pub struct ChannelEntity {
     updated_at: DateTime<Utc>,
 }
 
+impl ChannelEntity {
+    pub fn new(name: String, description: String) -> Self {
+        let now = Utc::now();
+        Self {
+            id: Uuid::new_v4(),
+            name,
+            description,
+            created_at: now,
+            updated_at: now,
+        }
+    }
+}
+
 impl Into<Channel> for ChannelEntity {
     fn into(self) -> Channel {
         Channel {

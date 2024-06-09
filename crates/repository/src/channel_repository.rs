@@ -1,12 +1,15 @@
 use async_trait::async_trait;
 use std::ops::DerefMut;
 use talk_hub_database::dao::channel_dao::ChannelDao;
+use talk_hub_database::entity::channel_entity::ChannelEntity;
 
 use talk_hub_database::utils::{get_conn, DbPool};
 use talk_hub_domain::crates::channel_operation::{
-    DeleteChannel, GetChannel, GetChannels, UpdateChannel,
+    CreateChannel, DeleteChannel, GetChannel, GetChannels, UpdateChannel,
 };
-use talk_hub_domain::input_data::channel_operation::{ChannelDeletion, ChannelUpdate};
+use talk_hub_domain::input_data::channel_operation::{
+    ChannelCreation, ChannelDeletion, ChannelUpdate,
+};
 use talk_hub_domain::result::TalkHubResult;
 use talk_hub_model::channel::{Channel, ChannelId};
 
@@ -42,6 +45,18 @@ impl GetChannels for ChannelRepository<'_> {
                     .map(|channel_entity| channel_entity.into())
                     .collect()
             })
+    }
+}
+
+#[async_trait]
+impl CreateChannel for ChannelRepository<'_> {
+    async fn create_channel(self, operation: ChannelCreation) -> TalkHubResult<Channel> {
+        let mut conn = get_conn(self.db_pool).await?;
+
+        let entity = ChannelEntity::new(operation.name, operation.description);
+        ChannelDao::insert(conn.deref_mut(), entity)
+            .await
+            .map(|channel_entity| channel_entity.into())
     }
 }
 

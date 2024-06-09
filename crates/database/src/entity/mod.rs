@@ -1,2 +1,2 @@
-pub(crate) mod channel_entity;
-pub(crate) mod message_entity;
+pub mod channel_entity;
+pub mod message_entity;
