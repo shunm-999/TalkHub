@@ -1,9 +1,12 @@
 use chrono::{DateTime, Utc};
-use diesel::{Identifiable, Queryable, Selectable};
-use talk_hub_model::channel::{Channel, ChannelId};
+use diesel::{AsChangeset, Identifiable, Insertable, QueryId, Queryable, Selectable};
 use uuid::Uuid;
 
-#[derive(Queryable, Identifiable, Selectable, Debug, PartialEq)]
+use talk_hub_model::channel::{Channel, ChannelId};
+
+#[derive(
+    Debug, PartialEq, QueryId, Queryable, Identifiable, Selectable, Insertable, AsChangeset,
+)]
 #[diesel(table_name = crate::schema::channel)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct ChannelEntity {

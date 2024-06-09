@@ -10,9 +10,9 @@ use diesel_async::{
     pooled_connection::deadpool::{Object as PooledConnection, Pool},
 };
 
+use crate::error::diesel_error::DieselError;
 use talk_hub_domain::result::TalkHubResult;
 
-pub type DieselError = Error;
 pub type ActualDbPool = Pool<AsyncPgConnection>;
 
 pub enum DbPool<'a> {

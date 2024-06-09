@@ -1,7 +1,9 @@
+use std::fmt::{Debug, Display};
+
+use tracing_error::SpanTrace;
+
 use crate::errors::error_type::TalkHubErrorType;
 use crate::result::TalkHubResult;
-use std::fmt::{Debug, Display};
-use tracing_error::SpanTrace;
 
 pub struct TalkHubError {
     pub error_type: TalkHubErrorType,
@@ -54,12 +56,22 @@ impl From<TalkHubErrorType> for TalkHubError {
 
 pub trait TalkHubErrorExt<T, E: Into<anyhow::Error>> {
     fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T>;
+
+    fn map_error_type(self, op: impl FnOnce(&E) -> TalkHubErrorType) -> TalkHubResult<T>;
 }
 
 impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
     fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T> {
         self.map_err(|e| TalkHubError {
             error_type,
+            inner: e.into(),
+            context: SpanTrace::capture(),
+        })
+    }
+
+    fn map_error_type(self, op: impl FnOnce(&E) -> TalkHubErrorType) -> TalkHubResult<T> {
+        self.map_err(|e| TalkHubError {
+            error_type: op(&e),
             inner: e.into(),
             context: SpanTrace::capture(),
         })

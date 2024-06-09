@@ -1,5 +1,6 @@
 mod dao;
 mod entity;
+mod error;
 mod migration;
 mod schema;
 pub mod utils;
