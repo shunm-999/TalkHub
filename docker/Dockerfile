@@ -12,7 +12,9 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 
 FROM debian:bookworm-slim
 
-RUN apt-get update
+RUN apt-get update && apt-get install -y libssl-dev libpq-dev
+
+RUN PATH=$PATH:/usr/local/pgsql/bin
 
 COPY --from=builder /talk_hub /bin/talk_hub
 
