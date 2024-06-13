@@ -2,8 +2,6 @@ use std::env;
 use std::net::IpAddr;
 use std::sync::OnceLock;
 
-use dotenv::dotenv;
-
 #[derive(Debug, Clone)]
 struct ServerConfig<T: Into<IpAddr>> {
     host: T,
@@ -46,7 +44,6 @@ fn init_config() -> Config {
     let log_level = env::var("RUST_LOG").unwrap_or("info".to_string());
     set_env_var("RUST_LOG", &log_level);
 
-    dotenv().ok();
     let server_config = load_server_config();
     let database_config = load_data_config();
 
