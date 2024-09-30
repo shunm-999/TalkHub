@@ -1,7 +1,7 @@
 use talk_hub_model::channel::Channel;
 
 use crate::crates::channel_operation::UpdateChannel;
-use crate::input_data::channel_operation::ChannelUpdate;
+use crate::input_data::channel_operation::ChannelUpdating;
 use crate::result::TalkHubResult;
 
 pub struct UpdateChannelUseCase<T: UpdateChannel + Sized> {
@@ -13,7 +13,7 @@ impl<T: UpdateChannel + Sized> UpdateChannelUseCase<T> {
         Self { repository }
     }
 
-    pub async fn invoke(self, operation: ChannelUpdate) -> TalkHubResult<Channel> {
+    pub async fn invoke(self, operation: ChannelUpdating) -> TalkHubResult<Channel> {
         self.repository.update_channel(operation).await
     }
 }

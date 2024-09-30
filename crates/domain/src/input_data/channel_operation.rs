@@ -5,7 +5,7 @@ pub struct ChannelCreation {
     pub description: String,
 }
 
-pub struct ChannelUpdate {
+pub struct ChannelUpdating {
     pub id: ChannelId,
     pub name: Option<String>,
     pub description: Option<String>,

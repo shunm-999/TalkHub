@@ -18,7 +18,9 @@ members = [
     "crates/database",
     "crates/domain",
     "crates/model",
-    "crates/repository"]
+    "crates/repository",
+    "crates/util"
+]
 
 [workspace.dependencies]
 talk_hub_api = { path = "./crates/api" }
@@ -26,6 +28,7 @@ talk_hub_database = { path = "./crates/database" }
 talk_hub_domain = { path = "./crates/domain" }
 talk_hub_model = { path = "./crates/model" }
 talk_hub_repository = { path = "./crates/repository" }
+talk_hub_util = { path = "./crates/util" }
 diesel = "2.1.6"
 diesel_migrations = "2.1.0"
 diesel-async = "0.4.1"

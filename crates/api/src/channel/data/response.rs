@@ -15,3 +15,8 @@ pub struct GetChannelResponse {
 pub struct CreateChannelResponse {
     pub channel: ChannelViewModel,
 }
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct UpdateChannelResponse {
+    pub channel: ChannelViewModel,
+}

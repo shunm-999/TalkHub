@@ -8,7 +8,7 @@ use talk_hub_domain::crates::channel_operation::{
     CreateChannel, DeleteChannel, GetChannel, GetChannels, UpdateChannel,
 };
 use talk_hub_domain::input_data::channel_operation::{
-    ChannelCreation, ChannelDeletion, ChannelUpdate,
+    ChannelCreation, ChannelDeletion, ChannelUpdating,
 };
 use talk_hub_domain::result::TalkHubResult;
 use talk_hub_model::channel::{Channel, ChannelId};
@@ -62,7 +62,7 @@ impl CreateChannel for ChannelRepository<'_> {
 
 #[async_trait]
 impl UpdateChannel for ChannelRepository<'_> {
-    async fn update_channel(self, operation: ChannelUpdate) -> TalkHubResult<Channel> {
+    async fn update_channel(self, operation: ChannelUpdating) -> TalkHubResult<Channel> {
         let mut conn = get_conn(self.db_pool).await?;
         ChannelDao::update(
             conn.deref_mut(),

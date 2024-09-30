@@ -4113,6 +4113,7 @@ dependencies = [
  "talk_hub_domain",
  "talk_hub_model",
  "talk_hub_repository",
+ "talk_hub_util",
  "tracing",
  "url",
 ]
@@ -4212,6 +4213,10 @@ dependencies = [
  "url",
  "uuid",
 ]
+
+[[package]]
+name = "talk_hub_util"
+version = "0.1.0"
 
 [[package]]
 name = "tempfile"
