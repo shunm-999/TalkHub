@@ -10,7 +10,3 @@ pub struct ChannelUpdating {
     pub name: Option<String>,
     pub description: Option<String>,
 }
-
-pub struct ChannelDeletion {
-    pub id: ChannelId,
-}

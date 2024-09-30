@@ -2,7 +2,7 @@ use async_trait::async_trait;
 
 use talk_hub_model::channel::{Channel, ChannelId};
 
-use crate::input_data::channel_operation::{ChannelCreation, ChannelDeletion, ChannelUpdating};
+use crate::input_data::channel_operation::{ChannelCreation, ChannelUpdating};
 use crate::result::TalkHubResult;
 
 #[async_trait]
@@ -27,5 +27,5 @@ pub trait UpdateChannel {
 
 #[async_trait]
 pub trait DeleteChannel {
-    async fn delete_channel(self, operation: ChannelDeletion) -> TalkHubResult<()>;
+    async fn delete_channel(self, channel_id: ChannelId) -> TalkHubResult<Channel>;
 }

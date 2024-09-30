@@ -9,7 +9,9 @@ pub struct ChannelViewModel {
     id: String,
     name: String,
     description: String,
+    #[serde(rename = "createdAt")]
     created_at: DateTimeViewModel,
+    #[serde(rename = "updatedAt")]
     updated_at: DateTimeViewModel,
 }
 
