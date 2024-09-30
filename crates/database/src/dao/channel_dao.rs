@@ -3,7 +3,7 @@ use diesel_async::{AsyncPgConnection, RunQueryDsl};
 use uuid::Uuid;
 
 use talk_hub_domain::errors::channel::channel_error_context::ChannelErrorContext;
-use talk_hub_domain::errors::error::TalkHubErrorExt;
+use talk_hub_domain::errors::error::IntoTalkHubError;
 use talk_hub_domain::errors::error_type::TalkHubErrorType;
 use talk_hub_domain::result::TalkHubResult;
 use talk_hub_model::channel::ChannelId;

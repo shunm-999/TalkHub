@@ -54,13 +54,13 @@ impl From<TalkHubErrorType> for TalkHubError {
     }
 }
 
-pub trait TalkHubErrorExt<T, E: Into<anyhow::Error>> {
+pub trait IntoTalkHubError<T, E: Into<anyhow::Error>> {
     fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T>;
 
     fn map_error_type(self, op: impl FnOnce(&E) -> TalkHubErrorType) -> TalkHubResult<T>;
 }
 
-impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
+impl<T, E: Into<anyhow::Error>> IntoTalkHubError<T, E> for Result<T, E> {
     fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T> {
         self.map_err(|e| TalkHubError {
             error_type,
@@ -75,24 +75,5 @@ impl<T, E: Into<anyhow::Error>> TalkHubErrorExt<T, E> for Result<T, E> {
             inner: e.into(),
             context: SpanTrace::capture(),
         })
-    }
-}
-
-pub trait TalkHubErrorExt2<T> {
-    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T>;
-
-    fn into_anyhow(self) -> Result<T, anyhow::Error>;
-}
-
-impl<T> TalkHubErrorExt2<T> for TalkHubResult<T> {
-    fn with_error_type(self, error_type: TalkHubErrorType) -> TalkHubResult<T> {
-        self.map_err(|mut e| {
-            e.error_type = error_type;
-            e
-        })
-    }
-
-    fn into_anyhow(self) -> Result<T, anyhow::Error> {
-        self.map_err(|e| e.inner)
     }
 }
