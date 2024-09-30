@@ -1,4 +1,3 @@
-use actix_web::dev::Response;
 use actix_web::http::StatusCode;
 use actix_web::web::{Data, Json};
 
