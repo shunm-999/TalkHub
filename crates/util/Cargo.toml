@@ -1,0 +1,8 @@
+[package]
+name = "talk_hub_util"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[dependencies]

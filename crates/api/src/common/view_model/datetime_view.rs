@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DateTimeViewModel {
+    #[serde(rename = "dateTime")]
     pub date_time: String,
     pub timezone: String,
 }

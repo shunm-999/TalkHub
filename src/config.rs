@@ -3,13 +3,13 @@ use std::net::IpAddr;
 use std::sync::OnceLock;
 
 #[derive(Debug, Clone)]
-struct ServerConfig<T: Into<IpAddr>> {
+pub struct ServerConfig<T: Into<IpAddr>> {
     host: T,
     port: u16,
 }
 
 #[derive(Debug, Clone)]
-struct DatabaseConfig {
+pub struct DatabaseConfig {
     database_url: String,
     pool_size: usize,
 }
